@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "EE4CCC23-141E-46D1-A04A-EFC2266CF958"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77050F5A-3A2D-453D-9B2F-DF9BC86B493C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ThreeWords/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "77050F5A-3A2D-453D-9B2F-DF9BC86B493C - 5911d592667d2834"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in ThreeWords.ContentView.body.getter : some"
+                  moduleName = "ThreeWords"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ramdhany/Dev/personal/swift/ThreeWords/ThreeWords/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "776">
+               </Location>
+               <Location
+                  uuid = "77050F5A-3A2D-453D-9B2F-DF9BC86B493C - 5911d592667d2834"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in ThreeWords.ContentView.body.getter : some"
+                  moduleName = "ThreeWords"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ramdhany/Dev/personal/swift/ThreeWords/ThreeWords/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "836">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
