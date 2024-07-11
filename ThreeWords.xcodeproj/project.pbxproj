@@ -26,6 +26,7 @@
 		539FEE002C3A661000DACC3C /* dict.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = dict.csv; sourceTree = SOURCE_ROOT; };
 		53A7B8572C3D775100F04B61 /* dict.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dict.csv; path = ../../../../../dict.csv; sourceTree = "<group>"; };
 		53B9230F2C3812C100BD3A0F /* DictRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictRecord.swift; sourceTree = "<group>"; };
+		53E771D42C409C0600C68516 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +43,7 @@
 		532007E62C20533300A5EDD4 = {
 			isa = PBXGroup;
 			children = (
+				53E771D42C409C0600C68516 /* README.md */,
 				532007F12C20533300A5EDD4 /* ThreeWords */,
 				532007F02C20533300A5EDD4 /* Products */,
 			);
