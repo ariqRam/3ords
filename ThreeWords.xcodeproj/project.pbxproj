@@ -13,7 +13,9 @@
 		532007FA2C20533300A5EDD4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 532007F92C20533300A5EDD4 /* Preview Assets.xcassets */; };
 		534F82652C3CA866003A0644 /* FlashcardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534F82642C3CA866003A0644 /* FlashcardsView.swift */; };
 		53A7B8582C3D775100F04B61 /* dict.csv in Resources */ = {isa = PBXBuildFile; fileRef = 53A7B8572C3D775100F04B61 /* dict.csv */; };
+		53A9A1A62C49EEEB00E304BB /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A1A52C49EEEB00E304BB /* Flashcard.swift */; };
 		53B923102C3812C100BD3A0F /* DictRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B9230F2C3812C100BD3A0F /* DictRecord.swift */; };
+		53FCCDF02C493199007A1061 /* NewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FCCDEF2C493199007A1061 /* NewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +27,10 @@
 		534F82642C3CA866003A0644 /* FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsView.swift; sourceTree = "<group>"; };
 		539FEE002C3A661000DACC3C /* dict.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = dict.csv; sourceTree = SOURCE_ROOT; };
 		53A7B8572C3D775100F04B61 /* dict.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dict.csv; path = ../../../../../dict.csv; sourceTree = "<group>"; };
+		53A9A1A52C49EEEB00E304BB /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
 		53B9230F2C3812C100BD3A0F /* DictRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictRecord.swift; sourceTree = "<group>"; };
 		53E771D42C409C0600C68516 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		53FCCDEF2C493199007A1061 /* NewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			children = (
 				53A7B8572C3D775100F04B61 /* dict.csv */,
 				534F82642C3CA866003A0644 /* FlashcardsView.swift */,
+				53FCCDEF2C493199007A1061 /* NewView.swift */,
+				53A9A1A52C49EEEB00E304BB /* Flashcard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,9 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A9A1A62C49EEEB00E304BB /* Flashcard.swift in Sources */,
 				532007F52C20533300A5EDD4 /* ContentView.swift in Sources */,
 				534F82652C3CA866003A0644 /* FlashcardsView.swift in Sources */,
 				532007F32C20533300A5EDD4 /* ThreeWordsApp.swift in Sources */,
+				53FCCDF02C493199007A1061 /* NewView.swift in Sources */,
 				53B923102C3812C100BD3A0F /* DictRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
