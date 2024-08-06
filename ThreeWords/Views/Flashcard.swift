@@ -15,9 +15,15 @@ struct Flashcard: View {
     var body: some View {
         VStack {
             Text(record.word)
+                .containerRelativeFrame(.horizontal)
+                .font(.title)
+                .fontWeight(.heavy)
+            Text(record.reading)
+                .font(.system(size: 15))
             Text(record.meaning)
+                .font(.system(size:20))
         }
-        .frame(width: 300, height: 320)
+        .frame(width: 300, height: 350)
         .background(bgColor)
         .foregroundStyle(Color.white)
         .cornerRadius(10)

@@ -7,6 +7,8 @@ struct NewView: View {
     @State private var offsetY: CGFloat = 0
     @State private var removedIndices: Set<Int> = []
     @State private var lastSwipeDirection: SwipeDirection = .none
+    @State private var swipeDirections: [SwipeDirection] = []
+    @State private var swipedNumbers: [Int] = [0, 0, 0]
     
     let cardWidth: CGFloat = 300
     let cardSpacing: CGFloat = -10
@@ -17,42 +19,55 @@ struct NewView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                ForEach(records.indices, id: \.self) { index in
-                    if !removedIndices.contains(index) {
-                        Flashcard(record: records[index], scale: scale(for: index, in: geometry))
-                            .frame(width: cardWidth)
-                            .offset(x: xOffset(for: index, in: geometry),
-                                    y: index == currentIndex ? offsetY : 0)
-                    }
-                }
-            }
-            .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        if abs(gesture.translation.width) > abs(gesture.translation.height) {
-                            // Horizontal swipe
-                            self.offsetX = gesture.translation.width
-                            self.offsetY = 0
-                        } else {
-                            // Vertical swipe
-                            self.offsetX = 0
-                            self.offsetY = gesture.translation.height
+        VStack {
+            GeometryReader { geometry in
+                ZStack {
+                    ForEach(records.indices, id: \.self) { index in
+                        if !removedIndices.contains(index) {
+                            Flashcard(record: records[index], scale: scale(for: index, in: geometry))
+                                .frame(width: cardWidth)
+                                .offset(x: xOffset(for: index, in: geometry),
+                                        y: index == currentIndex ? offsetY : 0)
                         }
                     }
-                    .onEnded { gesture in
-                        handleSwipe(gesture: gesture, cardWidth: geometry.size.width, cardHeight: geometry.size.height)
-                    }
-            )
-            .animation(.spring(duration: 0.3), value: currentIndex)
-        }
-        .onAppear {
-            if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
-                self.records = DictRecord.sampleData
-            } else {
-                self.records = CSVLoader.loadCSV(from: "dict")
+                }
+                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                .gesture(
+                    DragGesture()
+                        .onChanged { gesture in
+                            if abs(gesture.translation.width) > abs(gesture.translation.height) {
+                                // Horizontal swipe
+                                self.offsetX = gesture.translation.width
+                                self.offsetY = 0
+                            } else {
+                                // Vertical swipe
+                                self.offsetX = 0
+                                self.offsetY = gesture.translation.height
+                            }
+                        }
+                        .onEnded { gesture in
+                            handleSwipe(gesture: gesture, cardWidth: geometry.size.width, cardHeight: geometry.size.height)
+                        }
+                )
+                .animation(.spring(duration: 0.3), value: currentIndex)
+            }
+            .onAppear {
+                if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+                    self.records = DictRecord.sampleData
+                } else {
+                    self.records = CSVLoader.loadCSV(from: "dict")
+                }
+            }
+            HStack{
+                HStack {
+                    Text("⬅️: \(swipedNumbers[0])")
+                }
+                HStack {
+                    Text("⬆️: \(swipedNumbers[1])")
+                }
+                HStack {
+                    Text("⬇️: \(swipedNumbers[2])")
+                }
             }
         }
     }
@@ -61,7 +76,7 @@ struct NewView: View {
         let adjustedCardWidth = cardWidth + cardSpacing
         let baseOffset = CGFloat(index - currentIndex) * adjustedCardWidth
         let rightEdgeOfMainCard = (geometry.size.width + cardWidth) / 2 - peekAmount
-        let leftEdgeOfMainCard = rightEdgeOfMainCard - cardWidth
+        let leftEdgeOfMainCard = rightEdgeOfMainCard - cardWidth - peekAmount / 2
         return leftEdgeOfMainCard + baseOffset + offsetX
     }
     
@@ -99,33 +114,44 @@ struct NewView: View {
             // Vertical swipe (up or down)
             removedIndices.insert(currentIndex)
             lastSwipeDirection = gesture.translation.height > 0 ? .down : .up
+            if lastSwipeDirection == .down {swipedNumbers[2] += 1}
+            else {swipedNumbers[1] += 1}
             moveToNextCard()
-            print("vert \(removedIndices)")
-        } else if gesture.translation.width > horizontalSwipeThreshold {
+        } else if gesture.translation.width > horizontalSwipeThreshold && currentIndex > 0 {
             // Right swipe
-            if currentIndex > 0 {
-                withAnimation(.spring(duration: 0.3, bounce: 0.3)) {
-                    let previousIndex = currentIndex - 1
-                    print(removedIndices, previousIndex)
-                    if removedIndices.contains(previousIndex) {
-                        // Custom animation for bringing back a removed card
-                        offsetY = 1000
-                        removedIndices.remove(previousIndex)
-                        withAnimation(.spring(duration: 0.5, bounce: 0.3)) {
-                            currentIndex -= 1
-                            offsetY = 0
-                        }
-                    } else {
-                        withAnimation(.spring(duration: 0.3, bounce: 0.3)) {
-                            currentIndex -= 1
-                        }
+            switch swipeDirections[currentIndex - 1] {
+            case .left:
+                swipedNumbers[0] -= 1
+            case .up:
+                swipedNumbers[1] -= 1
+            case .down:
+                swipedNumbers[2] -= 1
+            default:
+                print("unregistered swipe")
+            }
+            withAnimation(.spring(duration: 0.3, bounce: 0.3)) {
+                let previousIndex = currentIndex - 1
+//                    print(removedIndices, previousIndex)
+                if removedIndices.contains(previousIndex) {
+                    // Custom animation for bringing back a removed card
+                    offsetY = 1000
+                    removedIndices.remove(previousIndex)
+                    withAnimation(.spring(duration: 0.5, bounce: 0.3)) {
+                        currentIndex -= 1
+                        offsetY = 0
                     }
-                    lastSwipeDirection = .right
+                } else {
+                    withAnimation(.spring(duration: 0.3, bounce: 0.3)) {
+                        currentIndex -= 1
+                    }
                 }
+                swipeDirections.removeLast()
+                lastSwipeDirection = .right
             }
         } else if gesture.translation.width < -horizontalSwipeThreshold && currentIndex < records.count - 1 {
             // Left swipe
 //            removedIndices.insert(currentIndex)
+            swipedNumbers[0] += 1
             lastSwipeDirection = .left
             withAnimation(.spring(duration: 0.3, bounce: 0.3)) {
                 moveToNextCard()
@@ -134,6 +160,13 @@ struct NewView: View {
             // No significant swipe, reset to center
             lastSwipeDirection = .none
         }
+        
+        if lastSwipeDirection != .right && lastSwipeDirection != .none {
+            print("APPENDING \(lastSwipeDirection)")
+            swipeDirections.append(lastSwipeDirection)
+        }
+        
+        print("\(swipedNumbers)")
         
         withAnimation(.spring(duration: 0.3, bounce: 0.3)) {
             offsetX = 0
